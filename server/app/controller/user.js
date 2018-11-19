@@ -22,9 +22,10 @@ class UserController extends Controller {
   async create() {
     const ctx = this.ctx;
     const { name, age } = ctx.request.body;
-    const user = await ctx.model.User.create({ name, age });
     ctx.status = 201;
-    ctx.body = user;
+    ctx.body = await ctx.service.user.create(ctx.request.body);
+    // const user = await ctx.model.User.create({ name, age });
+    // ctx.body = user;
   }
 
   async update() {
@@ -52,6 +53,28 @@ class UserController extends Controller {
 
     await user.destroy();
     ctx.status = 200;
+  }
+
+  async login() {
+    const {
+      ctx,
+    } = this;
+    const {
+      username,
+      password,
+    } = ctx.request.body;
+    ctx.body = await ctx.service.user.login({
+      username,
+      password,
+    });
+  }
+
+  async find() {
+    const {
+      ctx,
+    } = this;
+    const id = +ctx.params.id;
+    ctx.body = await ctx.service.user.find(id);
   }
 }
 

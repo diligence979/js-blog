@@ -8,6 +8,7 @@
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.5.0",
     "egg-sequelize": "^4.2.0",
+    "js-md5": "^0.7.3",
     "mysql2": "^1.6.4"
   },
   "devDependencies": {
