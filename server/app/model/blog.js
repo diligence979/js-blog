@@ -11,15 +11,6 @@ module.exports = app => {
     created_at: DATE,
     updated_at: DATE
   });
-  // }, {
-  //   classMethods: {
-  //     associate: (models) => {
-  //       Blog.hasMany(models.Comment,{
-  //         foreignKey: 'blog_id'
-  //       });      
-  //     }
-  //   }
-  // }); 
 
   Blog.associate = () => {
     app.model.Blog.belongsTo(app.model.User);

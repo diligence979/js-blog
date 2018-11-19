@@ -1,10 +1,5 @@
 const Controller = require('egg').Controller;
-
-function toInt(str) {
-  if (typeof str === 'number') return str;
-  if (!str) return str;
-  return parseInt(str, 10) || 0;
-}
+const toInt = require('../util/util');
 
 class BlogController extends Controller {
   async index() {

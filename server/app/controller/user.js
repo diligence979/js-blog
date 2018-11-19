@@ -1,10 +1,6 @@
 const Controller = require('egg').Controller;
+const toInt = require('../util/util');
 
-function toInt(str) {
-  if (typeof str === 'number') return str;
-  if (!str) return str;
-  return parseInt(str, 10) || 0;
-}
 
 class UserController extends Controller {
   async index() {
@@ -21,11 +17,8 @@ class UserController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, age } = ctx.request.body;
     ctx.status = 201;
     ctx.body = await ctx.service.user.create(ctx.request.body);
-    // const user = await ctx.model.User.create({ name, age });
-    // ctx.body = user;
   }
 
   async update() {
@@ -56,9 +49,7 @@ class UserController extends Controller {
   }
 
   async login() {
-    const {
-      ctx,
-    } = this;
+    const ctx = this.ctx;
     const {
       username,
       password,
@@ -67,14 +58,6 @@ class UserController extends Controller {
       username,
       password,
     });
-  }
-
-  async find() {
-    const {
-      ctx,
-    } = this;
-    const id = +ctx.params.id;
-    ctx.body = await ctx.service.user.find(id);
   }
 }
 

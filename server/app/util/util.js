@@ -13,4 +13,9 @@ module.exports = {
       return arr.indexOf(item) === index;
     });
   },
+  toInt(str) {
+    if (typeof str === 'number') return str;
+    if (!str) return str;
+    return parseInt(str, 10) || 0;
+  }
 };

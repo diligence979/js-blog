@@ -36,7 +36,7 @@ class UserService extends Service {
           username: user.username,
         },
       });
-      
+
       if (!userDB) {
         const res = await this.ctx.model.User.create(user);
         ctx.status = 201;
@@ -44,6 +44,7 @@ class UserService extends Service {
           data: res,
         });
       }
+
       ctx.status = 406;
       return Object.assign(ERROR, {
         msg: 'username already exists',
@@ -56,9 +57,7 @@ class UserService extends Service {
   }
 
   async del(id) {
-    const {
-      ctx,
-    } = this;
+    const ctx = this.ctx;
     try {
       const user = await ctx.model.User.findById(id);
       if (!user) {
@@ -79,9 +78,7 @@ class UserService extends Service {
   }
 
   async update({ id, user }) {
-    const {
-      ctx,
-    } = this;
+    const ctx = this.ctx;
     try {
       const userDB = await ctx.model.User.findById(id);
       if (!userDB) {
@@ -106,9 +103,7 @@ class UserService extends Service {
   }
 
   async login({ username, password }) {
-    const {
-      ctx,
-    } = this;
+    const ctx = this.ctx;
     try {
       const user = await ctx.model.User.findOne({
         where: {
@@ -149,33 +144,6 @@ class UserService extends Service {
     } catch (error) {
       ctx.status = 500;
       throw (error);
-    }
-  }
-
-  async find(id) {
-    const {
-      ctx,
-    } = this;
-    try {
-      const user = await ctx.model.User.findById(id, {
-        include: [{
-          model: ctx.model.Authority,
-          attributes: [ 'id', 'name' ],
-        }],
-      });
-      if (!user) {
-        ctx.status = 401;
-        return Object.assign(ERROR, {
-          msg: 'user not found',
-        });
-      }
-      ctx.status = 200;
-      return Object.assign(SUCCESS, {
-        data: user,
-      });
-
-    } catch (error) {
-      throw (500);
     }
   }
 }

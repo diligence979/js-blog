@@ -1,1 +1,1 @@
-# sophia-blog
+# js-blog
