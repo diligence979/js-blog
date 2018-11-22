@@ -16,7 +16,7 @@ module.exports = app => {
     app.model.Blog.belongsTo(app.model.User);
     app.model.Blog.belongsTo(app.model.Tag);
     app.model.Blog.hasMany(app.model.Comment, {
-      as: 'comment',
+      as: 'comments',
     });
   };
 

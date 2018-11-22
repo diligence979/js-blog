@@ -2,7 +2,6 @@
 
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
-  const Blog = require('./blog');
 
   const User = app.model.define('user', {
     user_id: { type: INTEGER, primaryKey: true, autoIncrement: true },
