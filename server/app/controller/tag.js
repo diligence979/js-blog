@@ -1,5 +1,5 @@
 const Controller = require('egg').Controller;
-const toInt = require('../util/util');
+const { toInt } = require('../util/util');
 
 class TagController extends Controller {
   async index() {

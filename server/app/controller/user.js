@@ -1,5 +1,5 @@
 const Controller = require('egg').Controller;
-const toInt = require('../util/util');
+const { toInt } = require('../util/util');
 
 
 class UserController extends Controller {
@@ -26,6 +26,7 @@ class UserController extends Controller {
     const id = toInt(ctx.params.id);
     const user = await ctx.model.User.findById(id);
     if (!user) {
+      console.log(user,'111111111')
       ctx.status = 404;
       return;
     }
@@ -40,6 +41,7 @@ class UserController extends Controller {
     const id = toInt(ctx.params.id);
     const user = await ctx.model.User.findById(id);
     if (!user) {
+      console.log(user)
       ctx.status = 404;
       return;
     }
@@ -58,6 +60,14 @@ class UserController extends Controller {
       username,
       password,
     });
+  }
+
+  async find() {
+    const {
+      ctx,
+    } = this;
+    const id = +ctx.params.id;
+    ctx.body = await ctx.service.user.find(id);
   }
 }
 

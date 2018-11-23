@@ -1,8 +1,11 @@
 module.exports = app => {
-    app.beforeStart(async () => {
-      // 应用会等待这个函数执行完成才启动
-    
-    });
+  if (app.config.env === 'local') {
+    app.beforeStart(async () =>
+      await app.model.sync({
+        force: false,
+      })
+    );
+  }
     app.once('server', server => {
       // websocket
     });

@@ -38,5 +38,16 @@ module.exports = appInfo => {
     password: sqlConfig.localSql.password,
   };
 
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+    domainWhiteList: [ 'http://127.0.0.1' ],
+  };
+
+  config.cors = {
+    credentials: true,
+  }
+
   return config;
 };
