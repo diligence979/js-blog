@@ -1,21 +1,21 @@
-const Controller = require('egg').Controller;
+const { Controller } = require('egg');
 const { toInt } = require('../util/util');
 
 class TagController extends Controller {
   async index() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
     console.log(query)
     ctx.body = await ctx.model.Tag.findAll(query);
   }
 
   async show() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     ctx.body = await ctx.model.Tag.findById(toInt(ctx.params.id));
   }
 
   async create() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const { name, age } = ctx.request.body;
     const tag = await ctx.model.Tag.create({ name, age });
     ctx.status = 201;
@@ -23,7 +23,7 @@ class TagController extends Controller {
   }
 
   async update() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const id = toInt(ctx.params.id);
     const tag = await ctx.model.Tag.findById(id);
     if (!tag) {
@@ -37,7 +37,7 @@ class TagController extends Controller {
   }
 
   async destroy() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const id = toInt(ctx.params.id);
     const tag = await ctx.model.Tag.findById(id);
     if (!tag) {

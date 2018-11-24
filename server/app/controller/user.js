@@ -1,57 +1,43 @@
-const Controller = require('egg').Controller;
+const { Controller } = require('egg');
 const { toInt } = require('../util/util');
 
 
 class UserController extends Controller {
   async index() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const query = { limit: toInt(ctx.query.limit), offset: toInt(ctx.query.offset) };
-    console.log(query)
     ctx.body = await ctx.model.User.findAll(query);
   }
 
   async show() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     ctx.body = await ctx.model.User.findById(toInt(ctx.params.id));
   }
 
   async create() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     ctx.status = 201;
     ctx.body = await ctx.service.user.create(ctx.request.body);
   }
 
   async update() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const id = toInt(ctx.params.id);
-    const user = await ctx.model.User.findById(id);
-    if (!user) {
-      console.log(user,'111111111')
-      ctx.status = 404;
-      return;
-    }
-
-    const { name, age } = ctx.request.body;
-    await user.update({ name, age });
-    ctx.body = user;
+    const user = ctx.request.body;
+    ctx.body = await ctx.service.user.update({
+      id,
+      user,
+    });
   }
 
   async destroy() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const id = toInt(ctx.params.id);
-    const user = await ctx.model.User.findById(id);
-    if (!user) {
-      console.log(user)
-      ctx.status = 404;
-      return;
-    }
-
-    await user.destroy();
-    ctx.status = 200;
+    ctx.body = await ctx.service.user.del(id);
   }
 
   async login() {
-    const ctx = this.ctx;
+    const { ctx } = this;
     const {
       username,
       password,
@@ -63,10 +49,8 @@ class UserController extends Controller {
   }
 
   async find() {
-    const {
-      ctx,
-    } = this;
-    const id = +ctx.params.id;
+    const { ctx } = this;
+    const id = toInt(ctx.params.id);
     ctx.body = await ctx.service.user.find(id);
   }
 }

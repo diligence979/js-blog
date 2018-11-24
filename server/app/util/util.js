@@ -1,11 +1,11 @@
 'use strict';
 module.exports = {
   ERROR: {
-    code: 1,
+    code: 0,
     msg: 'failed',
   },
   SUCCESS: {
-    code: 0,
+    code: 1,
     msg: 'success',
   },
   unique(arr) {

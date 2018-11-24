@@ -6,7 +6,7 @@ const { ERROR, SUCCESS} = require('../util/util');
 
 class UserService extends Service {
   async create(user) {
-    const ctx = this.ctx;
+    const { ctx } = this;
     try {
       if (!user.username || !user.password) {
         ctx.status = 400;
@@ -15,7 +15,7 @@ class UserService extends Service {
         });
       }
 
-      const md5Passwd = md5(user.password)
+      const md5Passwd = md5(user.password);
       user = Object.assign(user, {
         password: md5Passwd,
       });
@@ -46,7 +46,7 @@ class UserService extends Service {
   }
 
   async del(id) {
-    const ctx = this.ctx;
+    const { ctx } = this;
     try {
       const user = await ctx.model.User.findById(id);
       if (!user) {
@@ -67,7 +67,7 @@ class UserService extends Service {
   }
 
   async update({ id, user }) {
-    const ctx = this.ctx;
+    const { ctx } = this;
     try {
       const userDB = await ctx.model.User.findById(id);
       if (!userDB) {
@@ -92,7 +92,7 @@ class UserService extends Service {
   }
 
   async login({ username, password }) {
-    const ctx = this.ctx;
+    const { ctx } = this;
     try {
       const user = await ctx.model.User.findOne({
         where: {
@@ -137,14 +137,9 @@ class UserService extends Service {
   }
 
   async find(id) {
-    const ctx = this.ctx;
+    const { ctx } = this;
     try {
-      const user = await ctx.model.User.findById(id, {
-        include: [{
-          model: ctx.model.Authority,
-          attributes: [ 'id', 'name' ],
-        }],
-      });
+      const user = await ctx.model.User.findById(id);
       if (!user) {
         ctx.status = 401;
         return Object.assign(ERROR, {

@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = app => {
-  // app.router.post('/api/users', 'user.create');
-  // app.router.del('/api/users/:id', 'user.destroy');
-  // app.router.put('/api/users/:id', 'user.update');
-  // app.router.post('/api/users/login', 'user.login');
-  app.router.get('/api/users/:id', app.controller.user.find);
-  // app.router.get('/api/users/:id/edit', 'user.find');
+  const { router } = app;
+  router.post('/api/user', 'user.create');
+  router.delete('/api/user/:id', 'user.destroy');
+  router.put('/api/user/:id', 'user.update');
+  router.post('/api/user/login', 'user.login');
+  router.get('/api/user/:id', 'user.find');
+  router.get('/api/user/:id/edit', 'user.find');
 };

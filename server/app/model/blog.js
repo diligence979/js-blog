@@ -4,10 +4,10 @@ module.exports = app => {
   const { STRING, INTEGER, DATE, TEXT } = app.Sequelize;
 
   const Blog = app.model.define('blog', {
-    blog_id: { type: INTEGER, primaryKey: true, autoIncrement: true },
-    blog_title: STRING(255),
-    blog_content: TEXT,
-    blog_description: STRING(255),
+    id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+    title: STRING(255),
+    content: TEXT,
+    description: STRING(255),
     created_at: DATE,
     updated_at: DATE
   });
