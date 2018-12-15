@@ -7,8 +7,8 @@ module.exports = app => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     name: STRING(255),
     created_at: DATE,
-    updated_at: DATE
-  }); 
+    updated_at: DATE,
+  });
 
   Tag.associate = () => {
     app.model.Tag.belongsTo(app.model.User);

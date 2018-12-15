@@ -1,23 +1,30 @@
+'use strict';
+
 const { Controller } = require('egg');
 const { toInt } = require('../util/util');
 
 class BlogController extends Controller {
-  async index() {
+  // async index() {
+  //   const {
+  //     ctx,
+  //   } = this;
+  //   const res = await ctx.service.blog.index(ctx.query);
+  //   ctx.body = res;
+  // }
+
+  async create() {
     const { ctx } = this;
-    console.log('1111111111', ctx.query)
-    const res = await ctx.service.blog.index(ctx.query);
-    ctx.status = 200;
-    ctx.body = res;
+    const body = ctx.request.body;
+    const created = await ctx.service.blog.create(body);
+    ctx.status = 201;
+    ctx.body = created;
   }
 
-  // async create() {
-  //   const { ctx } = this;
-  //   const body = ctx.request.body;
-  //   body.user_id = 1;
-  //   const created = await ctx.service.blog.create(ctx.request.body);
-  //   ctx.status = 201;
-  //   ctx.body = created;
-  // }
+  async find() {
+    const { ctx } = this;
+    const id = ctx.params.id;
+    ctx.body = await ctx.service.blog.find(id);
+  }
 
   // async show() {
   //   const { ctx } = this;

@@ -1,8 +1,8 @@
 'use strict';
 
 const Service = require('egg').Service;
-const md5 = require('js-md5')
-const { ERROR, SUCCESS} = require('../util/util');
+const md5 = require('js-md5');
+const { ERROR, SUCCESS } = require('../util/util');
 
 class UserService extends Service {
   async create(user) {
@@ -18,6 +18,7 @@ class UserService extends Service {
       const md5Passwd = md5(user.password);
       user = Object.assign(user, {
         password: md5Passwd,
+        authorities: 0,
       });
 
       const userDB = await ctx.model.User.findOne({
@@ -76,7 +77,7 @@ class UserService extends Service {
           msg: 'user not found',
         });
       }
-      const md5Passwd = md5(user.password)
+      const md5Passwd = md5(user.password);
       user = Object.assign(user, {
         password: md5Passwd,
       });
@@ -96,7 +97,7 @@ class UserService extends Service {
     try {
       const user = await ctx.model.User.findOne({
         where: {
-          username: username.toString()
+          username: username.toString(),
         },
       });
       if (!user) {
@@ -106,7 +107,7 @@ class UserService extends Service {
       }
       if (md5(password) === user.password) {
         ctx.status = 200;
-        const hash = md5.hex(password)
+        const hash = md5.hex(password);
         ctx.cookies.set('token', hash, {
           httpOnly: false,
           signed: false,
