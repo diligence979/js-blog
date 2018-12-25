@@ -1,7 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
-const { ERROR, SUCCESS, unique } = require('../util/util');
+const { ERROR, SUCCESS } = require('../util/util');
 
 class BlogService extends Service {
   async create(blog) {
